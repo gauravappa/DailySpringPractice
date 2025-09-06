@@ -16,7 +16,7 @@ jobs:
       - name: Test
         run: ./gradlew test
 
-  build_code:
+  build_and_push_image:
     needs: test_code
     runs-on: ubuntu-latest
     steps:
@@ -27,10 +27,6 @@ jobs:
       - name: Build Image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/dailyspringtest:latest .
 
-  publish_image:
-    needs: build_code
-    runs-on: ubuntu-latest
-    steps:
       - name: Login into Docker Hub
         uses: docker/login-action@v3
         with:
